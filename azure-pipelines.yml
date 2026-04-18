@@ -36,6 +36,8 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       terraform plan \
+        -var="resource_group_name=$(RESOURCE_GROUP_NAME)" \
+        -var="location=$(LOCATION)" \
         -var="mysql_admin_password=$(MYSQL_ADMIN_PASSWORD)" \
         -var="ssh_public_key=$(SSH_PUBLIC_KEY)"
 
@@ -46,6 +48,8 @@ steps:
     scriptType: bash
     scriptLocation: inlineScript
     inlineScript: |
-      terraform apply -auto-approve \
+       terraform apply -auto-approve \
+        -var="resource_group_name=$(RESOURCE_GROUP_NAME)" \
+        -var="location=$(LOCATION)" \
         -var="mysql_admin_password=$(MYSQL_ADMIN_PASSWORD)" \
         -var="ssh_public_key=$(SSH_PUBLIC_KEY)"
