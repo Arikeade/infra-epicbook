@@ -14,7 +14,7 @@ steps:
     sudo apt-get update
     sudo apt-get install -y wget unzip
     wget https://releases.hashicorp.com/terraform/$(TF_VERSION)/terraform_$(TF_VERSION)_linux_amd64.zip
-    unzip terraform_$(TF_VERSION)_linux_amd64.zip
+    unzip -o terraform_$(TF_VERSION)_linux_amd64.zip
     sudo mv terraform /usr/local/bin/
     terraform version
   displayName: Install Terraform
@@ -35,7 +35,9 @@ steps:
     scriptType: bash
     scriptLocation: inlineScript
     inlineScript: |
-      terraform plan -var="mysql_admin_password=$(MYSQL_ADMIN_PASSWORD)"
+      terraform plan \
+        -var="mysql_admin_password=$(MYSQL_ADMIN_PASSWORD)" \
+        -var="ssh_public_key=$(SSH_PUBLIC_KEY)"
 
 - task: AzureCLI@2
   displayName: Terraform Apply
@@ -44,4 +46,6 @@ steps:
     scriptType: bash
     scriptLocation: inlineScript
     inlineScript: |
-      terraform apply -auto-approve -var="mysql_admin_password=$(MYSQL_ADMIN_PASSWORD)"
+      terraform apply -auto-approve \
+        -var="mysql_admin_password=$(MYSQL_ADMIN_PASSWORD)" \
+        -var="ssh_public_key=$(SSH_PUBLIC_KEY)"

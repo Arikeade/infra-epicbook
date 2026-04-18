@@ -1,5 +1,5 @@
 locals {
-  ssh_public_key = file(pathexpand(var.ssh_public_key_path))
+  ssh_public_key = var.ssh_public_key
 }
 
 resource "random_string" "suffix" {

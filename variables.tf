@@ -76,6 +76,11 @@ variable "ssh_public_key_path" {
   default     = "~/.ssh/id_rsa.pub"
 }
 
+variable "ssh_public_key" {
+  description = "SSH public key content"
+  type        = string
+}
+
 variable "mysql_admin_username" {
   description = "MySQL admin username"
   type        = string
